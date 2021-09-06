@@ -64,6 +64,64 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-pageobject" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/09/06/pageobject/" class="article-date">
+  <time datetime="2021-09-06T10:07:53.000Z" itemprop="datePublished">2021-09-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/09/06/pageobject/">pageobject</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>一、pageobject设计模式<br>步骤：<br>1.设置程序/app启动单独封装一个模块：desired_caps.py</p>
+<pre><code>注意：设置yaml参数里面添加两个值：——设置设备键盘
+    unicodeKeyboard: True
+    resetKeyboard: True
+         读取：
+    desired_caps[&#39;unicodeKeyboard&#39;]=data[&#39;unicodeKeyboard&#39;]
+     desired_caps[&#39;resetKeyboard&#39;]=data[&#39;resetKeyboard&#39;]
+ 
+  在模块里面调用一下：判断设备/程序能否启动？
+</code></pre>
+<p>2.设置基类：BaseView.py<br>    1.初始化driver<br>    2.获取所有元素的函数</p>
+<p>3.写的基础公共模块：common_fun.py<br>    1.继承——&gt;BaseView—&gt;获取driver、定位元素<br>    2.检查更新、跳过的函数</p>
+<pre><code>在模块里面调用取消更新/跳过的函数来测试一下？？？
+</code></pre>
+<p>4.写登录脚本：loginView.py<br>    1.继承——common—&gt;获取driver、定位元素<br>    2.编写loging_action函数：<br>        1.调用取消更新、跳过的函数<br>        2.输入用户名、密码、点击登录</p>
+<p>从单一的线性—-》pageobject模式设计    1—-》4个模块</p>
+<p>二、使用unitTest编写测试用例<br>    1.实现一个myunit.py脚本 —》继承 unittest.TestCase<br>        setup函数<br>            开始–》获取driver<br>        tearDown函数<br>            关闭—》</p>
+<pre><code>2.实现一个test_login.py脚本---&gt;继承myunit里面的startEnd
+    编写测试用例，以test开头
+</code></pre>
+<p>三、整合案例——》通过BsttestRunner生成测试报告<br>  webDriver生成测试报告：<br>    selenium—–》appium—–&gt;自动化脚本—&gt;pageobject模式<br>    unittest——&gt;unittest—&gt;执行测试用例<br>        BsttestRunner—-》生成测试报告</p>
+<p>实现步骤：<br>    1.配置yaml的参数：appname: kaoyan3.1.0.apk   路径在当前项目里面<br>    2.编写设备/程序启动脚本：desired_caps.py<br>    3.编写基础类的脚本<br>        1.初始化driver<br>        2.元素的定位<br>    4.编写common_fun.py的脚本<br>    5.编写login登录的脚本<br>    6.读取csv文件<br>    7.编写测试用例脚本<br>    8.生成测试报表</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/09/06/pageobject/" data-id="ckt8hel6r000020un20ig5u26" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-测试报表的搭建" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/09/03/%E6%B5%8B%E8%AF%95%E6%8A%A5%E8%A1%A8%E7%9A%84%E6%90%AD%E5%BB%BA/" class="article-date">
@@ -501,6 +559,10 @@ find_element_by_id()
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2021/09/06/pageobject/">pageobject</a>
+          </li>
         
           <li>
             <a href="/2021/09/03/%E6%B5%8B%E8%AF%95%E6%8A%A5%E8%A1%A8%E7%9A%84%E6%90%AD%E5%BB%BA/">Appium的数据配置与日志收集</a>
