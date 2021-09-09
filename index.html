@@ -64,6 +64,194 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-jmeter" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/09/09/jmeter/" class="article-date">
+  <time datetime="2021-09-09T02:31:58.000Z" itemprop="datePublished">2021-09-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/09/09/jmeter/">jmeter</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Jmeter做接口测试"><a href="#Jmeter做接口测试" class="headerlink" title="Jmeter做接口测试"></a><strong>Jmeter做接口测试</strong></h1><p><em><strong>*Jmeter*</strong></em> <em><strong>*脚本编写一般分五个步骤:*</strong></em></p>
+<p>\1. 添加线程组</p>
+<p>\2. 添加 http 请求</p>
+<p>\3. 在 http 请求中写入接入 url、路径、请求方式和参数</p>
+<p>\4. 添加查看结果树</p>
+<p>\5. 调用接口、查看返回值</p>
+<p>本次用来测试的接口地址的api：<a target="_blank" rel="noopener" href="http://httpbin.org/">httpbin.org</a></p>
+<h2 id="一、实施1-2步骤："><a href="#一、实施1-2步骤：" class="headerlink" title="一、实施1-2步骤："></a>一、<strong>实施1-2步骤：</strong></h2><p>添加线程组、http请求</p>
+<p><img src="file:///C:\Users\hccz\AppData\Local\Temp\ksohtml12940\wps1.jpg" alt="img"> </p>
+<h2 id="二、配置http请求的相关参数"><a href="#二、配置http请求的相关参数" class="headerlink" title="二、配置http请求的相关参数"></a>二、<strong>配置http请求的相关参数</strong></h2><p>在 http 请求中写入接入 url、路径、请求方式和参数，当前选择请求的方式为GET方式。</p>
+<p><img src="file:///C:\Users\hccz\AppData\Local\Temp\ksohtml12940\wps2.jpg" alt="img"> </p>
+<h2 id="三、调用接口，查看返回值"><a href="#三、调用接口，查看返回值" class="headerlink" title="三、调用接口，查看返回值"></a>三、<strong>调用接口，查看返回值</strong></h2><p>\1. 添加查看结果树</p>
+<p>\2. 调用接口，得到返回值</p>
+<p><img src="file:///C:\Users\hccz\AppData\Local\Temp\ksohtml12940\wps3.jpg" alt="img"> </p>
+<h2 id="四、请求方式改为post方式来进行请求"><a href="#四、请求方式改为post方式来进行请求" class="headerlink" title="四、请求方式改为post方式来进行请求"></a>四、<strong>请求方式改为post方式来进行请求</strong></h2><p>改为post进行测试，得到的响应数据</p>
+<p><img src="file:///C:\Users\hccz\AppData\Local\Temp\ksohtml12940\wps4.jpg" alt="img"></p>
+<h2 id="五、HTTP-请求默认值"><a href="#五、HTTP-请求默认值" class="headerlink" title="五、HTTP 请求默认值"></a>五、<strong>HTTP 请求默认值</strong></h2><p>通过上面两个请求我们发现，Web 服务器中的协议和服务器名称或 IP 这两个值都是一样，每次重复输入其实比较麻烦，因此我们可以使用 HTTP 请求默认值来管理这些公共的配置数据。</p>
+<p>添加步骤：</p>
+<p>线程组——添加——配置元件——HTTP 请求默认值 </p>
+<p>然后进行如下配置，并把该元件放置到请求前面。</p>
+<p><img src="file:///C:\Users\hccz\AppData\Local\Temp\ksohtml12940\wps5.jpg" alt="img"> </p>
+<p>经过请求默认值的配置后，后续我们增加新的请求，如果这两项值是一样的话，那么则无需再重复填入该值。</p>
+<h2 id="六、断言设置"><a href="#六、断言设置" class="headerlink" title="六、断言设置"></a>六、<strong>断言设置</strong></h2><p>Jmeter 可以针对每一个请求响应进行断言。</p>
+<p>设置步骤:</p>
+<p>选中一个请求，如 http-get,然后右键选择：</p>
+<p><em><strong>*添加——断言—*</strong></em> <em><strong>*—响应*</strong></em><em><strong>*断言。*</strong></em></p>
+<p><img src="file:///C:\Users\hccz\AppData\Local\Temp\ksohtml12940\wps6.jpg" alt="img"> </p>
+<p>各个匹配模式含义如下</p>
+<p>包括：响应内容包括需要匹配的内容即代表响应成功，支持正则表达式</p>
+<p>匹配：响应内容要完全匹配需要匹配的内容即代表响应成功，大小写不敏感，支持正则表达式。</p>
+<p>Equals：响应内容要完全等于需要匹配的内容才代表成功，大小写敏感，需要匹配的内容是字符串正则表达式</p>
+<p>Substring：返回结果包含指定结果的字串，但是 subString 不支持正则字符串</p>
+<p>如下图所示匹配返回的字符串是否包含：<a target="_blank" rel="noopener" href="http://httpbin.org/get">http://httpbin.org/get</a></p>
+<p>如果断言成功，则查看结果树为绿色标志，如果断言失败则为红色显示，如下图所示：</p>
+<p><img src="file:///C:\Users\hccz\AppData\Local\Temp\ksohtml12940\wps7.jpg" alt="img"> </p>
+<h2 id="七、参数设置"><a href="#七、参数设置" class="headerlink" title="七、参数设置"></a>七、<strong>参数设置</strong></h2><p>Jmeter 支持通过 Query String Parameters 或者 Request body 请求体来传递参数。</p>
+<p><strong>Query</strong> <strong>String</strong> <strong>Parameters</strong></p>
+<p>如果希望在请求 URL 中添加参数，则可以在 Http 请求界面的 Parameters 选项里面添加参数。该参数会通过 Query String Parameters 方式传递给服务器，也就是在 URL 中传递参数。 如下图如所示设置参数：</p>
+<p><img src="file:///C:\Users\hccz\AppData\Local\Temp\ksohtml12940\wps8.jpg" alt="img"> </p>
+<p><strong>Request</strong> <strong>body</strong></p>
+<p>在 Post 请求中参数一般在 body 中传递，Jmeter 也支持在 body 中传递参数。如传递 Json 格式的参数，在 BodyData 编辑框输入如下参数：</p>
+<p>{“username”:”Test1234”}</p>
+<p><img src="file:///C:\Users\hccz\AppData\Local\Temp\ksohtml12940\wps9.jpg" alt="img"> </p>
+<p>另外还需要指定参数的格式，因此需要添加 HTTP 信息头</p>
+<p>添加步骤：</p>
+<p>选定请求——添加——配置元件——HTTP 信息头管理器，然后在管理器里面添加参数类型Content-Type ：application/json 如下图所示：</p>
+<p><img src="file:///C:\Users\hccz\AppData\Local\Temp\ksohtml12940\wps10.jpg" alt="img"> </p>
+<h2 id="八、变量"><a href="#八、变量" class="headerlink" title="八、变量"></a>八、<strong>变量</strong></h2><p>在请求过程中，有时我们需要在请求中设置一些变量来测试不同的场景。</p>
+<p>Jmeter 支持以下类型变量：</p>
+<p>\1. 用户自定义变量</p>
+<p>\2. 函数生成变量</p>
+<p>\3. 数据文件变量</p>
+<p>\1) <strong>用户自定****义变量</strong></p>
+<p>设置步骤: 选中请求——添加——前置处理器——用户参数 设置变量名称为 user，值为 Test1234</p>
+<p><img src="file:///C:\Users\hccz\AppData\Local\Temp\ksohtml12940\wps11.jpg" alt="img"> </p>
+<p>在请求时引用变量如下所示: 变量引用格式为：${user}</p>
+<p><img src="file:///C:\Users\hccz\AppData\Local\Temp\ksohtml12940\wps12.jpg" alt="img"></p>
+<p>\2) <strong>函数生成变量</strong></p>
+<p>Jmeter 有许多内置的函数，可以生成随机数。</p>
+<p>创建步骤:</p>
+<p>点击菜单栏选项——函数助手对话框——下拉选择__Random()函数 函数配置如下：</p>
+<p><img src="file:///C:\Users\hccz\AppData\Local\Temp\ksohtml12940\wps13.jpg" alt="img"> </p>
+<p><img src="file:///C:\Users\hccz\AppData\Local\Temp\ksohtml12940\wps14.jpg" alt="img"> </p>
+<p>\3) <strong>CSV 数据文件变量</strong></p>
+<p>CSV 数据文件变量是指从外部 csv 文件读取数据出来作为变量。</p>
+<p>设置步骤: </p>
+<p>选择请求——添加——配置元件——CSV 数据文件设置</p>
+<p>创建 csv 文件:  注意文件编码为 UTF-8 文件内容如下：</p>
+<p>Test1234,Test1234</p>
+<p>data.csv</p>
+<p>CSV 数据文件设置如下：</p>
+<p><img src="file:///C:\Users\hccz\AppData\Local\Temp\ksohtml12940\wps15.jpg" alt="img"> </p>
+<p>在 Post 请求中引用变量数据如下：</p>
+<p><img src="file:///C:\Users\hccz\AppData\Local\Temp\ksohtml12940\wps16.jpg" alt="img"> </p>
+<p>得到的请求数据</p>
+<p>GET <a target="_blank" rel="noopener" href="http://httpbin.org/?user=Test1234&amp;pwd=Test1234">http://httpbin.org/?user=Test1234&amp;pwd=Test1234</a> GET data:Test1234Test1234{“username”:”Test1234”} [no cookies]</p>
+<p>\4) <strong>CSV参数化</strong></p>
+<p>针对之前的 POST 接口进行如下参数遍历测试： </p>
+<p>接口如下： </p>
+<p><a target="_blank" rel="noopener" href="http://httpbin.org/post">http://httpbin.org/post</a> </p>
+<p>发送参数：user1.csv</p>
+<p>user1,user1user2,user2user3,user3</p>
+<p>在之前的 csv 数据文件设置需要需改配置如下：</p>
+<p>表示把所有数据读取一遍，且不重复。 </p>
+<p><img src="file:///C:\Users\hccz\AppData\Local\Temp\ksohtml12940\wps17.jpg" alt="img"> </p>
+<p>读取的数据：</p>
+<p><img src="file:///C:\Users\hccz\AppData\Local\Temp\ksohtml12940\wps18.jpg" alt="img"> </p>
+<h2 id="九、用例分离"><a href="#九、用例分离" class="headerlink" title="九、用例分离"></a>九、<strong>用例分离</strong></h2><h3 id="用例设计"><a href="#用例设计" class="headerlink" title="用例设计"></a><strong>用例设计</strong></h3><p>之前我们的用例数据都是配置在 Jmeter Http 请求中，每次需要增加，修改用例都需要打开 jmeter 重新编辑，当 用例越来越多的时候，用例维护起来就越来越麻烦，有没有好的方法来解决这种情况呢？ </p>
+<p>其实我们可以将用例的数据存放在 csv 文件中，然后通过 csv 文件配置来读取用例中的数据，执行测试。用例数据如图所示：</p>
+<p><img src="file:///C:\Users\hccz\AppData\Local\Temp\ksohtml12940\wps19.jpg" alt="img"> </p>
+<p>用例名称变量含义：</p>
+<p>1．${caseSeq}:用例编号</p>
+<p>2．${apiType}:api 类型</p>
+<p>3．${apiSeq} ：api 版本号</p>
+<p>4．${apiName}：api 名称</p>
+<p>5．${priority}:优先级</p>
+<p>6．${url}:api 路径</p>
+<p>7．${methods}:请求方法</p>
+<p>8．${parameter}: 请求参数</p>
+<p>9．${expectValue}:期望值，用于断言</p>
+<h3 id="Jmeter设置步骤："><a href="#Jmeter设置步骤：" class="headerlink" title="Jmeter设置步骤："></a><strong>Jmeter设置步骤：</strong></h3><h4 id="1-新建一个线程组，命名为：数据驱动"><a href="#1-新建一个线程组，命名为：数据驱动" class="headerlink" title="1. 新建一个线程组，命名为：数据驱动"></a>1. <strong>新建一个线程组，命名为：数据驱动</strong></h4><p><img src="file:///C:\Users\hccz\AppData\Local\Temp\ksohtml12940\wps20.jpg" alt="img"> </p>
+<h4 id="2-创建一个-http-请求默认值，设置如下："><a href="#2-创建一个-http-请求默认值，设置如下：" class="headerlink" title="2.创建一个 http 请求默认值，设置如下："></a><strong>2.创建一个 http 请求默认值，设置如下：</strong></h4><p><img src="file:///C:\Users\hccz\AppData\Local\Temp\ksohtml12940\wps21.jpg" alt="img"> </p>
+<h4 id="3-添加一个循环控制器"><a href="#3-添加一个循环控制器" class="headerlink" title="3.添加一个循环控制器"></a><strong>3.添加一个循环控制器</strong></h4><p>步骤为：线程组——添加——逻辑控制器——循环控制器。 </p>
+<p>循环控制器的作用可以控制整个用例循环执行的次数。默认值是 1 根据用例数量可以修改为 4</p>
+<p><img src="file:///C:\Users\hccz\AppData\Local\Temp\ksohtml12940\wps22.jpg" alt="img"> </p>
+<h4 id="4-在循环控制器节点下创建-CSV-文件设置，具体配置内容如下——注意csv文件为上面的用例设计这步"><a href="#4-在循环控制器节点下创建-CSV-文件设置，具体配置内容如下——注意csv文件为上面的用例设计这步" class="headerlink" title="4.在循环控制器节点下创建 CSV 文件设置，具体配置内容如下——注意csv文件为上面的用例设计这步"></a><strong>4.在循环控制器节点下创建 CSV 文件设置，具体配置内容如下——注意csv文件为上面的用例设计这步</strong></h4><p><img src="file:///C:\Users\hccz\AppData\Local\Temp\ksohtml12940\wps23.jpg" alt="img"> </p>
+<h4 id="5-创建一个-if-控制器"><a href="#5-创建一个-if-控制器" class="headerlink" title="5.创建一个 if 控制器"></a><strong>5.创建一个 if 控制器</strong></h4><p>步骤为：循环控制器——添加——逻辑控制器——if 控制器</p>
+<p>if 控制器的作用为根据不同条件执行不同的用例，例如这里根据不同的接口请求类型，分别创建了 GET 和 POST 两个控制器。</p>
+<p>GET 设置的条件语句如下：</p>
+<p>条件语句为：<em><strong>*“${methods}”==”GET”*</strong></em><em><strong>*其中*</strong></em> <em><strong>*${methods}*</strong></em><em><strong>*表示引用 csv 中的*</strong></em> <em><strong>*methods*</strong></em> <em><strong>*中的值。*</strong></em></p>
+<p><img src="file:///C:\Users\hccz\AppData\Local\Temp\ksohtml12940\wps24.jpg" alt="img"> </p>
+<p>参数： • Interpret Condition as Variable Expression?：如果这个选项被选中，将不会使用 js 解析;条件表达式的值必须是 true(忽略大小写)，这里我们取消勾选状态。• Evaluate for all children：如果选中这一项，在每个子结点执行前都会计算表达式</p>
+<h4 id="6-创建-GET-请求类型的用例如下"><a href="#6-创建-GET-请求类型的用例如下" class="headerlink" title="6. 创建 GET 请求类型的用例如下:"></a>6. <strong>创建 GET 请求类型的用例如下:</strong></h4><p><img src="file:///C:\Users\hccz\AppData\Local\Temp\ksohtml12940\wps25.jpg" alt="img"> </p>
+<h4 id="7-POST请求设置：POST-条件语句设置为：“-methods-”-”POST”"><a href="#7-POST请求设置：POST-条件语句设置为：“-methods-”-”POST”" class="headerlink" title="7. POST请求设置：POST 条件语句设置为：“${methods}”==”POST”"></a>7. <strong>POST请求设置：POST 条件语句设置为：</strong><strong>“${methods}”==”POST”</strong></h4><p><img src="file:///C:\Users\hccz\AppData\Local\Temp\ksohtml12940\wps26.jpg" alt="img"> </p>
+<p><img src="file:///C:\Users\hccz\AppData\Local\Temp\ksohtml12940\wps27.jpg" alt="img"> </p>
+<p>用例名称格式：${caseSeq}_ ${apiSeq}_${apiName} </p>
+<p>断言设置如下：${expectValue}引用 csv 中对应的值。</p>
+<h2 id="十、测试报告"><a href="#十、测试报告" class="headerlink" title="十、测试报告"></a>十、<strong>测试报告</strong></h2><p>批量执行完接口测试之后，我们需要查看测试报告，在之前单个接口调试我们是通过查看结果树查看结果，但是当大 </p>
+<p>批量执行接口测试之后依旧这样查看那么肯定会很低效 那么该如何设置呢？ </p>
+<p><em><strong>*聚合报告*</strong></em> </p>
+<p>聚合报告是一个比较精简的报告元件，可以查看每个接口的性能情况与执行结果。 设置步骤：选中线程组——添 </p>
+<p>加——监听器——聚合报告。报告各个参数含义如下： </p>
+<p>• Samples – 本次场景中一共完成了多少个请求 </p>
+<p>• Average – 平均响应时间(单位：ms) </p>
+<p>• Median – 响应时间的中值(单位：ms) </p>
+<p>• 90% Line – 所有请求中 90%的响应时间。 </p>
+<p>• Min – 最小响应时间(单位：ms) </p>
+<p>• Max – 最大响应时间(单位：ms) </p>
+<p>• Error – 出错率 </p>
+<p>• Troughput – 吞吐量 </p>
+<p>• Received–响应数据大小 </p>
+<p>• KB/sec – 以流量做衡量的吞吐量 </p>
+<p><em><strong>*HTML 报告*</strong></em> </p>
+<p>有时候我们需要将测试报告以 HTML 附件形式发送给各个项目成员，那么需要生成 HTML 报告。 JMeter3.0 以后 </p>
+<p>引入了 Dashboard Report，用于生成 HTML 页面格式图形化报告的扩展模块。 </p>
+<p>生成步骤： </p>
+<p>打开 cmd 进入 jmeter 目录 bin 目录 </p>
+<p>执行命令： </p>
+<p>jmeter -n -t httpbin_test.jmx -l httpbin.jtl -e -o  C:\Users\Administrator\Desktop\Report</p>
+<p>命令的参数：</p>
+<p>-n ：以非 GUI 形式运行 Jmeter </p>
+<p>-t ：jmeter 脚本路径 </p>
+<p>-l ：result.jtl 运行结果保存路径（.jtl）此文件必须不存在。 </p>
+<p>-e ：在脚本运行结束后生成 html 报告 </p>
+<p>-o ：用于存放 html 报告的目录，不加该参数默认生成到 </p>
+<p><em><strong>*参考*</strong></em><em><strong>*/拓展*</strong></em><em><strong>*资料*</strong></em> </p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/zhizunyu2009/article/details/79011413">https://blog.csdn.net/zhizunyu2009/article/details/79011413</a> </p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/gld824125233/article/details/52842914">https://blog.csdn.net/gld824125233/article/details/52842914</a> </p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/defonds/article/details/53517247">https://blog.csdn.net/defonds/article/details/53517247</a> </p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/wuyou10206/article/details/77539791">https://blog.csdn.net/wuyou10206/article/details/77539791</a> </p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/huangjuyan/article/details/52993758">https://blog.csdn.net/huangjuyan/article/details/52993758</a> </p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/imyalost/p/10239317.html">https://www.cnblogs.com/imyalost/p/10239317.html</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/09/09/jmeter/" data-id="cktcbhi2y0000j0un6zbl01b6" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-pageobject" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/09/06/pageobject/" class="article-date">
@@ -559,6 +747,10 @@ find_element_by_id()
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2021/09/09/jmeter/">jmeter</a>
+          </li>
         
           <li>
             <a href="/2021/09/06/pageobject/">pageobject</a>
